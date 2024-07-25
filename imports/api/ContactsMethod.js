@@ -22,4 +22,9 @@ Meteor.methods({
     check(contactId, String);
     return ContactsCollection.removeAsync(contactId);
   },
+
+  "contacts.archive"({ contactId }) {
+    check(contactId, String);
+     ContactsCollection.updateAsync({ _id: contactId }, { $set: { archived: true } });
+  },
 });
