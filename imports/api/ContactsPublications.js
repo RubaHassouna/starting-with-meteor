@@ -6,5 +6,5 @@ Meteor.publish("allContacts", function publishAllContacts() {
 });
 
 Meteor.publish("contacts", function publishAllContacts() {
-  return ContactsCollection.find({archived:{$ne:true}});
+  return ContactsCollection.find({archived:{$ne:false}});
 }); 
