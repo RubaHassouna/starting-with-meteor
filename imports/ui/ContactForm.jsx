@@ -8,9 +8,9 @@ export const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [walletId, setWalletId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
 
   const showError = ({ message }) => {
     setError(message);
@@ -26,20 +26,22 @@ export const ContactForm = () => {
     }, 2000);
   };
 
-
   const saveContact = () => {
-  
-    Meteor.call("contacts", { name, email, imageUrl }, (errorResponse) => {
-      if (errorResponse) {
-        showError({ message: errorResponse.error });
-      } else {
-        setName("");
-        setEmail("");
-        setImageUrl("");
-        showSuccess({message:"contact saved."})
-       
+    Meteor.call(
+      "contacts",
+      { name, email, imageUrl,walletId},
+      (errorResponse) => {
+        if (errorResponse) {
+          showError({ message: errorResponse.error });
+        } else {
+          setName("");
+          setEmail("");
+          setImageUrl("");
+          setWalletId("");
+          showSuccess({ message: "contact saved." });
+        }
       }
-    });
+    );
   };
 
   return (
@@ -91,6 +93,22 @@ export const ContactForm = () => {
             id="imageUrl"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        <div className="col-span-6 ">
+          <label
+            htmlFor="walletId"
+            className="block text-sm font-medium text-gray-700"
+          >
+            wallet ID
+          </label>
+          <input
+            type="text"
+            id="walletId"
+            value={walletId}
+            onChange={(e) => setWalletId(e.target.value)}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
